@@ -1,6 +1,7 @@
 package com.skilldistillery.filmquery.app;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
@@ -13,12 +14,8 @@ public class FilmQueryApp {
 
   public static void main(String[] args) {
     FilmQueryApp app = new FilmQueryApp();
-    try {
-		app.test();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-//    app.launch();
+//		app.test();
+    app.launch();
   }
 
   private void test() throws SQLException {
@@ -27,15 +24,102 @@ public class FilmQueryApp {
   }
 
   private void launch() {
-    Scanner input = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
     
-    startUserInterface(input);
+    startUserInterface(sc);
+    boolean switchTrigger=true;
+	while(switchTrigger) {
+	int userInput= menu(sc);
+	switch(userInput) {
+	case 1:
+		//Search by id:
+			int userId=getID(sc);
+		try {
+			Film idFilm=db.findFilmById(userId);
+			if(idFilm!=null) {
+			System.out.println(db.findFilmById(userId));
+			}else {
+				System.out.println("That id does not go to one of our films");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		break;
+	case 2:
+		//search by keyword
+			String userKeyword=getKeyword(sc);
+		try {
+			List<Film> keywordFilm= db.findFilmByKeyword(userKeyword);
+			if(!keywordFilm.isEmpty()) {
+				System.out.println(db.findFilmByKeyword(userKeyword));
+				}else {
+					System.out.println("We do not have a film that uses that keyword");
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		break;
+	case 3:
+		System.out.println("Goodbye");
+		switchTrigger=false;
+		break;
+	}
+	}
     
-    input.close();
+    sc.close();
   }
 
   private void startUserInterface(Scanner input) {
     
   }
+  private int menu(Scanner sc) {
+		
+		boolean inputTrigger=true;
+		int userInput=0;
+		while(inputTrigger) {
+		System.out.println("How would you like to search for a movie?");
+		System.out.println("1) Look up a film by its id");
+		System.out.println("2) Look up a film by a search keyword.");
+		System.out.println("3) Exit");
+	
+		try {
+			userInput= sc.nextInt();
+			sc.nextLine();
+			if(userInput>=1 && userInput<=3) {
+				inputTrigger=false;
+			}else {
+				System.out.println("That was not a readable response");
+			}
+		}catch(Exception e) {
+			System.out.println("That was not a readable response. Please type in a number between 1-3");
+		}
+		
+		}
+		
+		return userInput;
+	}
+	private int getID(Scanner sc) {
+		boolean inputTrigger=true;
+		int userInput=0;
+		while(inputTrigger) {
+		System.out.println("Please give me the id number that you would like.");
+		try {
+			userInput= sc.nextInt();
+				inputTrigger=false;
+			
+		}catch(Exception e) {
+			System.out.println("That was not a readable response. Please try again.");
+		}
+		
+		}
+		return userInput;
+	}
+	
+	private String getKeyword(Scanner sc) {
+		System.out.println("What keyword would you like to search?");
+		String userInput= sc.nextLine();
+		String keyword= "%" + userInput+ "%";
+		return keyword;
+	}
 
 }

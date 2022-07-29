@@ -172,7 +172,7 @@ public class Film {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
 				+ ",\n rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
 				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]";
+				+ ", specialFeatures=" + specialFeatures + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]\n";
 	}
 	
 	

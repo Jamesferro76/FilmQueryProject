@@ -48,8 +48,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 						features, findActorsByFilmId(filmId), language);
 
 			} while (rs.next());
-		} else {
-			System.out.println("That id does not go to one of our films");
 		}
 		stmt.close();
 		conn.close();
@@ -119,13 +117,35 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				actor = new Actor(actorID, firstName, lastName);
 				actorList.add(actor);
 			} while (rs.next());
-		} else {
-			System.out.println("That id does not go to one of our films");
 		}
 		stmt.close();
 		conn.close();
 		rs.close();
 		return actorList;
+	}
+	
+	public List<Film> findFilmByKeyword(String keyword) throws SQLException {
+		List<Film> filmList= new ArrayList<>();
+		String user = "student";
+		String pass = "student";
+		Connection conn = DriverManager.getConnection(URL, user, pass);
+
+		String sql = "SELECT * FROM film WHERE title LIKE ? OR description LIKE ?";
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, keyword);
+		stmt.setString(2, keyword);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			int id=rs.getInt("id");
+			filmList.add(findFilmById(id));
+		}
+		stmt.close();
+		conn.close();
+		rs.close();
+		return filmList;
+		
 	}
 
 }
