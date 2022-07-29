@@ -93,6 +93,7 @@ public class FilmQueryApp {
 				System.out.println("That was not a readable response");
 			}
 		}catch(Exception e) {
+			sc.nextLine();
 			System.out.println("That was not a readable response. Please type in a number between 1-3");
 		}
 		
