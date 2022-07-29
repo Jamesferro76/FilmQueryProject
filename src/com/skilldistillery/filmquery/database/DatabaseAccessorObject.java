@@ -45,7 +45,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String features = rs.getString("special_features");
 				String language= rs.getString("name");
 				film = new Film(filmID, title, desc, releaseYear, langId, rentDur, rate, length, repCost, rating,
-						features, findActorsByFilmId(filmId), language);
+						features, findActorsByFilmId(filmId), language, findFilmCategory(filmId));
 
 			} while (rs.next());
 		}
@@ -145,6 +145,39 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		conn.close();
 		rs.close();
 		return filmList;
+		
+	}
+	
+	public List<String> findFilmCategory(int id) throws SQLException{
+		List<String> category= new ArrayList<>();
+		String user = "student";
+		String pass = "student";
+		Connection conn = DriverManager.getConnection(URL, user, pass);
+
+		String sql = "SELECT f.*, c.* FROM film f JOIN film_category fc ON f.id=fc.film_id "
+			      + "JOIN category c ON fc.category_id=c.id WHERE f.id=?";
+
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, id);
+ResultSet rs = stmt.executeQuery();
+		
+if (rs.next()) {
+	// This do while loop is probably useless because there will only be one result
+	do {
+		//doesn't show what language the film is in
+//		System.out.println(rs.getString("title") + " " + rs.getString("release_year") + " "
+//				+ rs.getString("rating") + " " + rs.getString("description"));
+//		System.out.println(
+//				rs.getString("a.id") + " " + rs.getString("first_name") + " " + rs.getString("last_name"));
+		category.add(rs.getString("c.name"));
+
+	} while (rs.next());
+}
+		stmt.close();
+		conn.close();
+		rs.close();
+		return category;
+		
 		
 	}
 

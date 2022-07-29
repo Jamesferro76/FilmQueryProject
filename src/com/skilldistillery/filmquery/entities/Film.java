@@ -17,6 +17,7 @@ public class Film {
 	private String specialFeatures;
 	private List<Actor> actorList;
 	private String language;
+	private List<String> category;
 	
 	
 	
@@ -33,7 +34,7 @@ public class Film {
 
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
-			List<Actor> actorList, String language) {
+			List<Actor> actorList, String language, List<String> category) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -48,6 +49,7 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.actorList = actorList;
 		this.language = language;
+		this.category = category;
 	}
 
 
@@ -118,31 +120,24 @@ public class Film {
 	public void setSpecialFeatures(String specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
-	
-
 	public List<Actor> getActorList() {
 		return actorList;
 	}
-
-
-
 	public void setActorList(List<Actor> actorList) {
 		this.actorList = actorList;
 	}
-
-
-
 	public String getLanguage() {
 		return language;
 	}
-
-
-
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-
-
+	public List<String> getCategory() {
+		return category;
+	}
+	public void setCategory(List<String> category) {
+		this.category = category;
+	}
 
 	@Override
 	public int hashCode() {
@@ -171,7 +166,7 @@ public class Film {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
 				+ ",\n rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
 				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]\n";
+				+ ", specialFeatures=" + specialFeatures + ", category="+ category + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]\n";
 	}
 	@Override
 	public String toString() {
