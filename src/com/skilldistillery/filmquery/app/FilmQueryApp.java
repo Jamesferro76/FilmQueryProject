@@ -37,7 +37,7 @@ public class FilmQueryApp {
 		try {
 			Film idFilm=db.findFilmById(userId);
 			if(idFilm!=null) {
-			System.out.println(db.findFilmById(userId));
+			System.out.println(idFilm);
 			}else {
 				System.out.println("That id does not go to one of our films");
 			}
@@ -51,7 +51,7 @@ public class FilmQueryApp {
 		try {
 			List<Film> keywordFilm= db.findFilmByKeyword(userKeyword);
 			if(!keywordFilm.isEmpty()) {
-				System.out.println(db.findFilmByKeyword(userKeyword));
+				System.out.println(keywordFilm);
 				}else {
 					System.out.println("We do not have a film that uses that keyword");
 				}
@@ -77,10 +77,12 @@ public class FilmQueryApp {
 		boolean inputTrigger=true;
 		int userInput=0;
 		while(inputTrigger) {
+		System.out.println("-----------------------------------------");
 		System.out.println("How would you like to search for a movie?");
 		System.out.println("1) Look up a film by its id");
 		System.out.println("2) Look up a film by a search keyword.");
 		System.out.println("3) Exit");
+		System.out.println("-----------------------------------------");
 	
 		try {
 			userInput= sc.nextInt();
