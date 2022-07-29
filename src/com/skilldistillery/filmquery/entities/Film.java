@@ -167,18 +167,19 @@ public class Film {
 				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-//				+ ",\n rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-//				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-//				+ ", specialFeatures=" + specialFeatures + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]\n";
-//	}
+	public String toString2() {
+		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
+				+ ",\n rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
+				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
+				+ ", specialFeatures=" + specialFeatures + ",\n actorList=" + actorList + ",\n language=" + language + ", languageId=" + languageId + "]\n";
+	}
 	@Override
 	public String toString() {
 		return "\n Film: title=" + title + ", releaseYear=" + releaseYear +", rating=" + rating+", description=" + description
 				 + ",\n language=" + language +",\n actorList=" + actorList + "]";
 	}
+	
+	
 	
 	
 	

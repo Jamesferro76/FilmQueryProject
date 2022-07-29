@@ -1,6 +1,7 @@
 package com.skilldistillery.filmquery.app;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,6 +39,12 @@ public class FilmQueryApp {
 			Film idFilm=db.findFilmById(userId);
 			if(idFilm!=null) {
 			System.out.println(idFilm);
+			
+			List<Film> listFilm= new ArrayList<>();
+			listFilm.clear();
+			listFilm.add(idFilm);
+			
+			subMenu(sc, listFilm);
 			}else {
 				System.out.println("That id does not go to one of our films");
 			}
@@ -52,6 +59,7 @@ public class FilmQueryApp {
 			List<Film> keywordFilm= db.findFilmByKeyword(userKeyword);
 			if(!keywordFilm.isEmpty()) {
 				System.out.println(keywordFilm);
+				subMenu(sc, keywordFilm);
 				}else {
 					System.out.println("We do not have a film that uses that keyword");
 				}
@@ -123,6 +131,42 @@ public class FilmQueryApp {
 		String userInput= sc.nextLine();
 		String keyword= "%" + userInput+ "%";
 		return keyword;
+	}
+	
+	public void subMenu(Scanner sc, List<Film> film) {
+		boolean inputTrigger=true;
+		int userInput=0;
+		while(inputTrigger) {
+		System.out.println("-----------------------------------------");
+		System.out.println("Would you like to:");
+		System.out.println("1) Return to menu");
+		System.out.println("2) View all details");
+		System.out.println("-----------------------------------------");
+	
+		try {
+			userInput= sc.nextInt();
+			sc.nextLine();
+			if(userInput>=1 && userInput<=3) {
+				inputTrigger=false;
+			}else {
+				System.out.println("That was not a readable response");
+			}
+		}catch(Exception e) {
+			sc.nextLine();
+			System.out.println("That was not a readable response. Please type in either 1 or 2");
+		}
+		
+		}
+		
+		switch(userInput) {
+		case 1:
+			break;
+		case 2:
+			for (Film film2 : film) {
+				System.out.println(film2.toString2());
+			}
+			break;
+		}
 	}
 
 }
